@@ -9,6 +9,7 @@ Kumpulan script Python dan Google Colab untuk membantu pengolahan serta analisis
 | 1 | Master Baru & Generate Kode Zona Baru | [`scripts/master_baru_generate_kode_zona.py`](scripts/master_baru_generate_kode_zona.py) | Tersedia |
 | 2 | Penambahan Toko & Generate Kode Zona | [`scripts/penambahan_toko_generate_kode_zona.py`](scripts/penambahan_toko_generate_kode_zona.py) | Tersedia |
 | 3 | Update UJP Master | [`scripts/update_ujp_master.py`](scripts/update_ujp_master.py) | Tersedia |
+| 4 | Penambahan Master Toko | [`scripts/penambahan_master_toko.py`](scripts/penambahan_master_toko.py) | Tersedia |
 
 ## 1. Master Baru & Generate Kode Zona Baru
 
@@ -107,6 +108,33 @@ Jalankan secara lokal:
 python scripts/update_ujp_master.py data_master.xlsx -o hasil_update_ujp.xlsx
 ```
 
+## 4. Penambahan Master Toko
+
+Script ini melengkapi sheet **DATA MASTER** dengan `KODE ZONA` dan `NAMA ZONA`
+berdasarkan kombinasi OP, kecamatan, dan pola seluruh kolom UJP yang terdeteksi.
+Kode dibuat secara deterministik, unik per OP/kecamatan/pola UJP, dan dibatasi
+maksimal 15 karakter.
+
+Hasil tetap mempertahankan sheet dan format workbook sumber, lalu menambahkan:
+
+- `MAPPING_ZONA`, berisi hubungan kecamatan, pola UJP, suffix, dan kode zona;
+- `AUDIT_ZONA`, berisi hasil validasi panjang, format, keunikan, dan konsistensi kode.
+
+Jalankan di Google Colab:
+
+```python
+%run scripts/penambahan_master_toko.py
+```
+
+Jalankan secara lokal:
+
+```bash
+python scripts/penambahan_master_toko.py data_master.xlsx -o hasil_master_toko.xlsx
+```
+
+Kolom wajib adalah `OP`, `KECAMATAN`, dan minimal satu kolom dengan awalan
+`UJP `. Kolom UJP tambahan di luar daftar standar akan terdeteksi otomatis.
+
 ## Menambah script baru
 
 Simpan setiap fungsi baru sebagai file Python terpisah di folder `scripts/`. Gunakan format nama file huruf kecil dan underscore, misalnya:
@@ -116,6 +144,7 @@ scripts/
 ├── master_baru_generate_kode_zona.py
 ├── penambahan_toko_generate_kode_zona.py
 ├── update_ujp_master.py
+├── penambahan_master_toko.py
 ├── validasi_master_toko.py
 └── analisa_ujp.py
 ```
@@ -129,11 +158,13 @@ data-analisa-tms-fiqri/
 ├── scripts/
 │   ├── master_baru_generate_kode_zona.py
 │   ├── penambahan_toko_generate_kode_zona.py
-│   └── update_ujp_master.py
+│   ├── update_ujp_master.py
+│   └── penambahan_master_toko.py
 ├── tests/
 │   ├── test_master_baru_generate_kode_zona.py
 │   ├── test_penambahan_toko_generate_kode_zona.py
-│   └── test_update_ujp_master.py
+│   ├── test_update_ujp_master.py
+│   └── test_penambahan_master_toko.py
 ├── .gitignore
 ├── LICENSE
 ├── README.md
