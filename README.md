@@ -8,6 +8,7 @@ Kumpulan script Python dan Google Colab untuk membantu pengolahan serta analisis
 |---:|---|---|---|
 | 1 | Master Baru & Generate Kode Zona Baru | [`scripts/master_baru_generate_kode_zona.py`](scripts/master_baru_generate_kode_zona.py) | Tersedia |
 | 2 | Penambahan Toko & Generate Kode Zona | [`scripts/penambahan_toko_generate_kode_zona.py`](scripts/penambahan_toko_generate_kode_zona.py) | Tersedia |
+| 3 | Update UJP Master | [`scripts/update_ujp_master.py`](scripts/update_ujp_master.py) | Tersedia |
 
 ## 1. Master Baru & Generate Kode Zona Baru
 
@@ -78,6 +79,34 @@ python scripts/penambahan_toko_generate_kode_zona.py data_master_olah.xlsx -o ha
 
 File output berisi tiga sheet: `DATA MASTER`, `MASTER TOKO`, dan `AUDIT REFERENSI`.
 
+## 3. Update UJP Master
+
+Script ini menganalisis kolom update UJP untuk menentukan apakah toko tetap menggunakan kode zona lama, memerlukan update UJP, dipindahkan ke zona lain, atau mendapatkan suffix zona baru.
+
+Nilai pada kolom UJP asli **tidak diubah**. Hasil hanya:
+
+- menyesuaikan `Kode Zona` jika diperlukan; dan
+- menambahkan kolom `Keterangan`.
+
+Klasifikasi zona:
+
+- **Tipe A:** tidak ada perubahan UJP;
+- **Tipe B1:** semua toko dalam zona berubah ke signature UJP yang sama;
+- **Tipe B2:** perubahan campuran menghasilkan signature akhir yang sama sehingga update dibatalkan;
+- **Tipe C:** terdapat beberapa signature akhir sehingga kelompok minoritas memperoleh suffix zona baru.
+
+Jalankan di Google Colab:
+
+```python
+%run scripts/update_ujp_master.py
+```
+
+Jalankan secara lokal:
+
+```bash
+python scripts/update_ujp_master.py data_master.xlsx -o hasil_update_ujp.xlsx
+```
+
 ## Menambah script baru
 
 Simpan setiap fungsi baru sebagai file Python terpisah di folder `scripts/`. Gunakan format nama file huruf kecil dan underscore, misalnya:
@@ -86,6 +115,7 @@ Simpan setiap fungsi baru sebagai file Python terpisah di folder `scripts/`. Gun
 scripts/
 ├── master_baru_generate_kode_zona.py
 ├── penambahan_toko_generate_kode_zona.py
+├── update_ujp_master.py
 ├── validasi_master_toko.py
 └── analisa_ujp.py
 ```
@@ -98,10 +128,12 @@ Setelah menambahkan script, perbarui tabel **Daftar fungsi** pada README ini.
 data-analisa-tms-fiqri/
 ├── scripts/
 │   ├── master_baru_generate_kode_zona.py
-│   └── penambahan_toko_generate_kode_zona.py
+│   ├── penambahan_toko_generate_kode_zona.py
+│   └── update_ujp_master.py
 ├── tests/
 │   ├── test_master_baru_generate_kode_zona.py
-│   └── test_penambahan_toko_generate_kode_zona.py
+│   ├── test_penambahan_toko_generate_kode_zona.py
+│   └── test_update_ujp_master.py
 ├── .gitignore
 ├── LICENSE
 ├── README.md
