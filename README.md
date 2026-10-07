@@ -33,7 +33,7 @@ Daftar kolom UJP yang didukung dapat dilihat pada konstanta `UJP_COLUMNS` di dal
 3. Jalankan perintah berikut untuk mengunduh repository:
 
    ```python
-   !git clone https://github.com/USERNAME/data-analisa-tms-fiqri.git
+   !git clone https://github.com/fiqriadi25/data-analisa-tms-fiqri.git
    %cd data-analisa-tms-fiqri
    !pip install -r requirements.txt
    ```
@@ -49,8 +49,6 @@ Daftar kolom UJP yang didukung dapat dilihat pada konstanta `UJP_COLUMNS` di dal
    ```text
    data_master_generate_zona.xlsx
    ```
-
-> Ganti `USERNAME` dengan username GitHub pemilik repository.
 
 ## Menambah script baru
 
@@ -93,4 +91,3 @@ pytest
 ## Lisensi
 
 Project ini menggunakan lisensi MIT. Lihat file [`LICENSE`](LICENSE).
-
